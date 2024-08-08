@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Expression Analysis</title>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <input type="submit" value="Analyze">
+    </form>
+
+    {% if image_base64 %}
+        <h2>Analysis Result</h2>
+        <h3>Dominant Emotion</h3>
+        <p>Emotion: {{ dominant_emotion }}</p>
+        <p>Probability: {{ dominant_prob }}%</p>
+
+        {% if second_emotion %}
+            <h3>Second Emotion</h3>
+            <p>Emotion: {{ second_emotion }}</p>
+            <p>Probability: {{ second_prob }}%</p>
+        {% endif %}
+
+        <h3>Uploaded Image</h3>
+        <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" width="500">
+    {% endif %}
+</body>
+</html>
